@@ -21,3 +21,9 @@ portfolio_sma200_summary = len(portfolio_sma200) / len(portfolio)
 portfolio_sma200_summary = "{:.2%}".format(portfolio_sma200_summary)
 
 print(portfolio_ema20)
+print(portfolio_sma50)
+print(portfolio_sma200)
+
+print(portfolio_ema20_summary)
+print(portfolio_sma50_summary)
+print(portfolio_sma200_summary)
