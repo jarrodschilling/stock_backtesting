@@ -17,7 +17,7 @@ def api_call(symbol):
     
     today = datetime.date.today()
     tomorrow = today + datetime.timedelta(days=1)
-    start_date = "2022-01-01"
+    start_date = "2000-01-01"
     end_date = tomorrow.strftime('%Y-%m-%d')
 
     # Fetch historical stock data
