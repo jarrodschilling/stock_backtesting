@@ -1,9 +1,10 @@
+# QQQE only backtests to 2013
+
 indices = [
     "DIA",
     "SPY",
     "RSP",
     "QQQ",
-    "QQQJ",
     "QQQE",
     "IWM",
     "IWF",
