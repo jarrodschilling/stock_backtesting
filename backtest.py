@@ -10,17 +10,17 @@ from data import indices, sectors, industries, sub_sectors
 
 # QQQE only backtests to 2013
 
-comparison_portfolio = indices
-comparison_portfolio_name = "Indices"
+comparison_portfolio = industries
+comparison_portfolio_name = "Industry ETFs"
 current_portfolio = "SPY"
 current_portfolio_name = "SPY"
-ma_period = 200
-ma_type = "SMA"
+ma_period = 20
+ma_type = "EMA"
 
 # User inputs start date and auto adjust to get needed MA data
-input_start_date = '2014-01-01'
+input_start_date = '2018-01-01'
 start_date = (datetime.strptime(input_start_date, '%Y-%m-%d') - timedelta(days=ma_period)).strftime('%Y-%m-%d')
-end_date = '2023-10-10'
+end_date = '2023-10-13'
 
 # Highlighting parameters
 threshold = "below"
