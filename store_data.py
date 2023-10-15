@@ -14,4 +14,3 @@ spy_data['Adj Close'] = spy_data['Adj Close'].ffill()  # Forward fill any missin
 
 spy_store_data = spy_data['Adj Close']
 spy_store_data.to_csv("qqq_2000_data.csv")
-
