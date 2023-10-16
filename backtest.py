@@ -14,17 +14,17 @@ comparison_portfolio = industries
 comparison_portfolio_name = "Industry ETFs"
 current_portfolio = "SPY"
 current_portfolio_name = "SPY"
-ma_period = 100
-ma_type = "SMA"
+ma_period = 20
+ma_type = "EMA"
 
 # User inputs start date and auto adjust to get needed MA data
-input_start_date = '2022-01-01'
+input_start_date = '2023-06-01'
 start_date = (datetime.strptime(input_start_date, '%Y-%m-%d') - timedelta(days=ma_period)).strftime('%Y-%m-%d')
 end_date = '2023-10-13'
 
 # Highlighting parameters
-threshold = "above"
-highlight_threshold = 22
+threshold = "below"
+highlight_threshold = 1
 
 # -----------------------------------------------------------------------------------------------------
 # ------------ FUNCTIONS
@@ -44,9 +44,19 @@ def calculate_ma(data, ma_period, ma_type):
 
 # Backtest and calculate the percentage above MA for each date
 def backtest_percentage_above_ma(data, ma_period, ma_type):
-    # calculate all 3 MA's to identify trend
     ma_data = calculate_ma(data, ma_period, ma_type)
-    above_ma = data > ma_data
+    ema_20 = calculate_ma(data, 20, "EMA")
+    sma_50 = calculate_ma(data, 50, "SMA")
+    sma_200 = calculate_ma(data, 200, "SMA")
+    
+    if ma_period == 20:
+        above_ma = (data > ema_20) & (ema_20 > sma_50) & (sma_50 > sma_200)
+    elif ma_period == 50:
+        above_ma = (data > sma_50) & (sma_50 > sma_200)
+    elif ma_period == 200:
+        above_ma = data > sma_200
+
+
     percentage_above_ma = (above_ma.sum(axis=1) / len(comparison_portfolio)) * 100
     return percentage_above_ma
 
@@ -58,6 +68,7 @@ current_portfolio_data = api_historical_data(current_portfolio, start_date, end_
 
 # Calculate the percentage above EMA for each date
 percentage_above_ma = backtest_percentage_above_ma(comparison_portfolio_data, ma_period, ma_type)
+
 
 
 # Create a Pandas DataFrame with the results
@@ -80,7 +91,7 @@ highlighted_regions = []
 
 if threshold == "above":
     for i in range(ma_period, len(percentage_above_ma)):
-        if percentage_above_ma[i] > highlight_threshold:
+        if percentage_above_ma.iloc[i] > highlight_threshold:
             if not highlighted_regions:
                 hl_start_date = percentage_above_ma.index[i]
             highlighted_regions.append(percentage_above_ma.index[i])
@@ -93,7 +104,7 @@ if threshold == "above":
 
 elif threshold == "below":
     for i in range(ma_period, len(percentage_above_ma)):
-        if percentage_above_ma[i] < highlight_threshold:
+        if percentage_above_ma.iloc[i] < highlight_threshold:
             if not highlighted_regions:
                 hl_start_date = percentage_above_ma.index[i]
             highlighted_regions.append(percentage_above_ma.index[i])
