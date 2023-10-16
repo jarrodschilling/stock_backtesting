@@ -14,17 +14,18 @@ comparison_portfolio = industries
 comparison_portfolio_name = "Industry ETFs"
 current_portfolio = "SPY"
 current_portfolio_name = "SPY"
-ma_period = 20
-ma_type = "EMA"
+ma_period = 50
+ma_type = "SMA"
 
 # User inputs start date and auto adjust to get needed MA data
-input_start_date = '2023-06-01'
-start_date = (datetime.strptime(input_start_date, '%Y-%m-%d') - timedelta(days=ma_period)).strftime('%Y-%m-%d')
+input_start_date = '2020-01-01'
+# Adjust date for time series, so it can always capture the 200 Day SMA
+start_date = (datetime.strptime(input_start_date, '%Y-%m-%d') - timedelta(days=300)).strftime('%Y-%m-%d')
 end_date = '2023-10-13'
 
 # Highlighting parameters
-threshold = "below"
-highlight_threshold = 1
+threshold = "above"
+highlight_threshold = 80
 
 # -----------------------------------------------------------------------------------------------------
 # ------------ FUNCTIONS
@@ -90,7 +91,7 @@ fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8), sharex=True)
 highlighted_regions = []
 
 if threshold == "above":
-    for i in range(ma_period, len(percentage_above_ma)):
+    for i in range(200, len(percentage_above_ma)):
         if percentage_above_ma.iloc[i] > highlight_threshold:
             if not highlighted_regions:
                 hl_start_date = percentage_above_ma.index[i]
@@ -103,7 +104,7 @@ if threshold == "above":
             ax2.axvspan(hl_start_date, hl_end_date, facecolor='orange', alpha=0.6)
 
 elif threshold == "below":
-    for i in range(ma_period, len(percentage_above_ma)):
+    for i in range(200, len(percentage_above_ma)):
         if percentage_above_ma.iloc[i] < highlight_threshold:
             if not highlighted_regions:
                 hl_start_date = percentage_above_ma.index[i]
@@ -120,16 +121,17 @@ if highlighted_regions:
     ax1.axvspan(hl_start_date, hl_end_date, facecolor='orange', alpha=0.6)
     ax2.axvspan(hl_start_date, hl_end_date, facecolor='orange', alpha=0.6)
 
-
+# print(percentage_above_ma.index[percentage_above_ma.index >= input_start_date])
+# print(percentage_above_ma.values[percentage_above_ma.index >= input_start_date])
 
 
 # Plot the percentage above EMA in the first subplot
-ax1.plot(percentage_above_ma.index[ma_period:], percentage_above_ma.values[ma_period:], linewidth=1.5)
+ax1.plot(percentage_above_ma.index[percentage_above_ma.index >= input_start_date], percentage_above_ma.values[percentage_above_ma.index >= input_start_date], linewidth=1.5)
 ax1.set_ylabel(f'Percentage Above {ma_type}')
 ax1.set_title(f'Percentage of {comparison_portfolio_name} Above {ma_period}-Day {ma_type}')
 
 # Plot the SPY price in the second subplot
-ax2.plot(current_portfolio_data.index[ma_period:], current_portfolio_data.values[ma_period:])
+ax2.plot(current_portfolio_data.index[percentage_above_ma.index >= input_start_date], current_portfolio_data.values[percentage_above_ma.index >= input_start_date])
 ax2.set_ylabel('Price')
 ax2.set_title(f'{current_portfolio_name} Price')
 
