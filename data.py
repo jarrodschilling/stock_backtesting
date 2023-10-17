@@ -101,3 +101,15 @@ sub_sectors = [
     "TAN",
     "CNCR",
 ]
+
+portfolio = [
+    'AAPL',
+    'NVDA', 
+    'HES', 
+    'SLB', 
+    'LLY',  
+    'UBER', 
+    'PANW', 
+    'MDB', 
+    'LULU'
+]

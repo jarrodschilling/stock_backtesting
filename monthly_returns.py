@@ -1,4 +1,6 @@
 import yfinance as yf
+from data import portfolio
+from backtest import api_historical_data
 import pandas as pd
 from matplotlib import pyplot as plt
 import calendar
@@ -7,12 +9,16 @@ from matplotlib.ticker import FuncFormatter
 # XLC + XLRE limited data, all other sectors go back pre-GFC
 # XWEB(2017), XSW(2012), XTN(2012), XAR(2012), XHS(2012), XHE(2012), XTL(2012), all others 2007
 
+
+
 # Set the start and end dates
 start_date = "2019-12-31"
-end_date = "2022-12-31"
+end_date = "2023-10-16"
 
 # Download SPY historical data
 spy_data = yf.download("^GSPC", start=start_date, end=end_date)
+
+
 
 
 # Calculate monthly returns
@@ -22,10 +28,6 @@ monthly_returns = spy_data['Adj Close'].resample('M').ffill().pct_change()
 # Calculate the average monthly return for each month of the year
 average_returns_by_month = monthly_returns.groupby(monthly_returns.index.month).mean()
 
-# Print the monthly returns
-# print(monthly_returns)
-# print((monthly_returns * 100).round(1))
-# print((average_returns_by_month * 100).round(1))
 
 def percent_formatter(x, pos):
     return f'{x * 100:.1f}%'
