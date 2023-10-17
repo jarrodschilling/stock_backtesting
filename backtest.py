@@ -8,12 +8,17 @@ from data import indices, sectors, industries, sub_sectors
 # ------------ INPUTS
 # -----------------------------------------------------------------------------------------------------
 
+# SPY - 1994, QQQ - 2000, ^GSPC, ^IXIC
+# XLC(2019) + XLRE(2016) limited data, all other sectors go back pre-GFC
+# XWEB(2017), XSW(2012), XTN(2012), XAR(2012), XHS(2012), XHE(2012), XTL(2012), all others 2007
+
+
 # QQQE only backtests to 2013
 
-comparison_portfolio = industries
-comparison_portfolio_name = "Industry ETFs"
-current_portfolio = "SPY"
-current_portfolio_name = "SPY"
+comparison_portfolio = sectors
+comparison_portfolio_name = "Sector ETFs"
+current_portfolio = "QQQ"
+current_portfolio_name = "QQQ"
 ma_period = 50
 ma_type = "SMA"
 
@@ -21,11 +26,11 @@ ma_type = "SMA"
 input_start_date = '2020-01-01'
 # Adjust date for time series, so it can always capture the 200 Day SMA
 start_date = (datetime.strptime(input_start_date, '%Y-%m-%d') - timedelta(days=300)).strftime('%Y-%m-%d')
-end_date = '2023-10-13'
+end_date = '2023-10-16'
 
 # Highlighting parameters
-threshold = "above"
-highlight_threshold = 80
+threshold = "below"
+highlight_threshold = 20
 
 # -----------------------------------------------------------------------------------------------------
 # ------------ FUNCTIONS
@@ -131,7 +136,7 @@ ax1.set_ylabel(f'Percentage Above {ma_type}')
 ax1.set_title(f'Percentage of {comparison_portfolio_name} Above {ma_period}-Day {ma_type}')
 
 # Plot the SPY price in the second subplot
-ax2.plot(current_portfolio_data.index[percentage_above_ma.index >= input_start_date], current_portfolio_data.values[percentage_above_ma.index >= input_start_date])
+ax2.plot(current_portfolio_data.index[percentage_above_ma.index >= input_start_date], current_portfolio_data.values[percentage_above_ma.index >= input_start_date], linewidth=1.7)
 ax2.set_ylabel('Price')
 ax2.set_title(f'{current_portfolio_name} Price')
 
