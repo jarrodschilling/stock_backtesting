@@ -15,8 +15,8 @@ from data import indices, sectors, industries, sub_sectors
 
 # QQQE only backtests to 2013
 
-comparison_portfolio = sectors
-comparison_portfolio_name = "Sector ETFs"
+comparison_portfolio = industries
+comparison_portfolio_name = "Industries ETFs"
 current_portfolio = "QQQ"
 current_portfolio_name = "QQQ"
 ma_period = 50
