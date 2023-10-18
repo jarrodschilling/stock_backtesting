@@ -16,9 +16,9 @@ from data import indices, sectors, industries, sub_sectors
 # QQQE only backtests to 2013
 
 comparison_portfolio = industries
-comparison_portfolio_name = "Industries ETFs"
-current_portfolio = "QQQ"
-current_portfolio_name = "QQQ"
+comparison_portfolio_name = "Industry ETFs"
+current_portfolio = "SPY"
+current_portfolio_name = "SPY"
 ma_period = 50
 ma_type = "SMA"
 
@@ -26,11 +26,11 @@ ma_type = "SMA"
 input_start_date = '2020-01-01'
 # Adjust date for time series, so it can always capture the 200 Day SMA
 start_date = (datetime.strptime(input_start_date, '%Y-%m-%d') - timedelta(days=300)).strftime('%Y-%m-%d')
-end_date = '2023-10-16'
+end_date = '2023-10-17'
 
 # Highlighting parameters
 threshold = "below"
-highlight_threshold = 20
+highlight_threshold = 1
 
 # -----------------------------------------------------------------------------------------------------
 # ------------ FUNCTIONS
