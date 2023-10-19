@@ -38,7 +38,7 @@ industries = [
     "KIE",
     "XRT",
     "XPH",
-    # "XWEB",
+    "XWEB",
     "XHS",
     "XSW",
     "XSD",

@@ -20,18 +20,18 @@ comparison_portfolio = industries
 comparison_portfolio_name = "Industry ETFs"
 current_portfolio = "SPY"
 current_portfolio_name = "SPY"
-ma_period = 50
+ma_period = 200
 ma_type = "SMA"
 
 # User inputs start date and auto adjust to get needed MA data
-input_start_date = '2023-09-01'
+input_start_date = '2020-01-01'
 # Adjust date for time series, so it can always capture the 200 Day SMA
 start_date = (datetime.strptime(input_start_date, '%Y-%m-%d') - timedelta(days=300)).strftime('%Y-%m-%d')
-end_date = '2023-10-19'
+end_date = '2023-10-10'
 
 # Highlighting parameters
 threshold = "below"
-highlight_threshold = 5
+highlight_threshold = 25
 
 # -----------------------------------------------------------------------------------------------------
 # ------------ FUNCTIONS
