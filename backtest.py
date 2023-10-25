@@ -18,20 +18,20 @@ from data import indices, sectors, industries, sub_sectors
 
 comparison_portfolio = industries
 comparison_portfolio_name = "Industry ETFs"
-current_portfolio = "SPY"
-current_portfolio_name = "SPY"
-ma_period = 200
+current_portfolio = "QQQ"
+current_portfolio_name = "QQQ"
+ma_period = 50
 ma_type = "SMA"
 
 # User inputs start date and auto adjust to get needed MA data
-input_start_date = '2020-01-01'
+input_start_date = '2018-01-01'
 # Adjust date for time series, so it can always capture the 200 Day SMA
 start_date = (datetime.strptime(input_start_date, '%Y-%m-%d') - timedelta(days=300)).strftime('%Y-%m-%d')
-end_date = '2023-10-10'
+end_date = '2023-10-26'
 
 # Highlighting parameters
 threshold = "below"
-highlight_threshold = 25
+highlight_threshold = 1
 
 # -----------------------------------------------------------------------------------------------------
 # ------------ FUNCTIONS
@@ -113,19 +113,25 @@ elif threshold == "below":
     for i in range(200, len(percentage_above_ma)):
         if percentage_above_ma.iloc[i] < highlight_threshold:
             if not highlighted_regions:
-                top_start_date = percentage_above_ma.index[i]
-                bottom_start_date = percentage_above_ma.index[i]
+                hl_start_date = percentage_above_ma.index[i]
+                # top_start_date = percentage_above_ma.index[i]
+                # bottom_start_date = percentage_above_ma.index[i]
             highlighted_regions.append(percentage_above_ma.index[i])
         elif highlighted_regions:
-            top_end_date = percentage_above_ma.index[i]
-            bottom_end_date = percentage_above_ma.index[i]
+            hl_end_date = percentage_above_ma.index[i]
+            # top_end_date = percentage_above_ma.index[i]
+            # bottom_end_date = percentage_above_ma.index[i]
             highlighted_regions = []
-            ax1.axvspan(top_start_date, top_end_date, facecolor='orange', alpha=0.6)
-            ax2.axvspan(bottom_start_date, bottom_end_date, facecolor='orange', alpha=0.6)
+            # ax1.axvspan(top_start_date, top_end_date, facecolor='orange', alpha=0.6)
+            # ax2.axvspan(bottom_start_date, bottom_end_date, facecolor='orange', alpha=0.6)
+            ax1.axvspan(hl_start_date, hl_end_date, facecolor='orange', alpha=0.6)
+            ax2.axvspan(hl_start_date, hl_end_date, facecolor='orange', alpha=0.6)
 
 # Check for a highlighted region after the loop ends
 if highlighted_regions:
     hl_end_date = percentage_above_ma.index[-1]  
+    # ax1.axvspan(top_start_date, top_end_date, facecolor='orange', alpha=0.6)
+    # ax2.axvspan(bottom_start_date, bottom_end_date, facecolor='orange', alpha=0.6)
     ax1.axvspan(hl_start_date, hl_end_date, facecolor='orange', alpha=0.6)
     ax2.axvspan(hl_start_date, hl_end_date, facecolor='orange', alpha=0.6)
 
