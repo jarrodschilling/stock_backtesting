@@ -17,7 +17,7 @@ indices = [
 
 sectors = [
     "XLI",
-    "XLC",
+    # "XLC",
     "XLY",
     "XLK",
     "XLB",
@@ -25,7 +25,7 @@ sectors = [
     "XLP",
     "XLV",
     "XLF",
-    "XLRE",
+    # "XLRE",
     "XLU"
 ]
 
