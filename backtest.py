@@ -16,18 +16,18 @@ from data import indices, sectors, industries, sub_sectors
 
 # QQQE only backtests to 2013
 
-comparison_portfolio = sectors
-comparison_portfolio_name = "Sectors"
+comparison_portfolio = industries
+comparison_portfolio_name = "Industries"
 current_portfolio = "SPY"
 current_portfolio_name = "SPY"
-ma_period = 200
+ma_period = 50
 ma_type = "SMA"
 
 # User inputs start date and auto adjust to get needed MA data
 input_start_date = '2018-01-01'
 # Adjust date for time series, so it can always capture the 200 Day SMA
 start_date = (datetime.strptime(input_start_date, '%Y-%m-%d') - timedelta(days=300)).strftime('%Y-%m-%d')
-end_date = '2023-10-28'
+end_date = '2023-11-04'
 
 # Highlighting parameters
 threshold = "below"
