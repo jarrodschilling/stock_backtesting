@@ -13,25 +13,25 @@ from data import indices, sectors, industries, sub_sectors
 # XWEB(2017), XSW(2012), XTN(2012), XAR(2012), XHS(2012), XHE(2012), XTL(2012), all others 2007
 # CIBR(2016), AIQ(2019), IBUY(2017), IDRV(2020), JETS(2016), BLOK(2019), CNCR(2016), ROBO(2014), ESPO(2019), VICE(2018), , all others start of 2013 okay to run
 
-
 # QQQE only backtests to 2013
 
+# User inputs
 comparison_portfolio = industries
 comparison_portfolio_name = "Industries"
 current_portfolio = "SPY"
 current_portfolio_name = "SPY"
-ma_period = 50
-ma_type = "SMA"
+ma_period = 20
+ma_type = "EMA"
 
 # User inputs start date and auto adjust to get needed MA data
-input_start_date = '2018-01-01'
+input_start_date = '2013-01-01'
 # Adjust date for time series, so it can always capture the 200 Day SMA
 start_date = (datetime.strptime(input_start_date, '%Y-%m-%d') - timedelta(days=300)).strftime('%Y-%m-%d')
-end_date = '2023-11-04'
+end_date = '2023-11-11'
 
 # Highlighting parameters
 threshold = "below"
-highlight_threshold = 1
+highlight_threshold = 50
 
 # -----------------------------------------------------------------------------------------------------
 # ------------ FUNCTIONS
